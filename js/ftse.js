@@ -28,7 +28,7 @@ class App extends React.Component {
   componentDidMount() {
     this.intervalID = setInterval(
       () => this.tick(),
-      30000
+      5000
     );
 
   }

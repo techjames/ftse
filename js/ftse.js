@@ -23,10 +23,25 @@ class App extends React.Component {
     this.state={
       jobs:[]
     }
-  var myUrl = "https://spreadsheets.google.com/feeds/list/0AhySzEddwIC1dEtpWF9hQUhCWURZNEViUmpUeVgwdGc/1/public/basic?alt=json";
-  fetch(myUrl)
-    .then((response) => response.json())
-    .then((json) => this.setState({jobs: json.feed.entry}));
+  }
+
+  componentDidMount() {
+    this.intervalID = setInterval(
+      () => this.tick(),
+      30000
+    );
+
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+
+  tick() {
+    var myUrl = "https://spreadsheets.google.com/feeds/list/0AhySzEddwIC1dEtpWF9hQUhCWURZNEViUmpUeVgwdGc/1/public/basic?alt=json";
+    fetch(myUrl)
+     .then((response) => response.json())
+     .then((json) => this.setState({jobs: json.feed.entry}));
   }
   
   render() {
@@ -47,4 +62,3 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 );
-

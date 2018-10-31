@@ -1,18 +1,18 @@
 'use strict';
 
-class Jobs extends React.Component {
+class Shares extends React.Component {
   
   render() {
-	const jobs = this.props.jobs;
-    console.log(jobs);
-    const formattedJobs = jobs.map((job) =>
-      <ul key={job.id}>
-        <div className="company">{job.title.$t}</div>
-        <div className={job.content.$t.indexOf('-') == -1 ? 'normal' : 'negative'}>{job.content.$t.substring(6, job.content.$t.length)}</div>
+	const shares = this.props.shares;
+    console.log(shares);
+    const formattedShares = shares.map((share) =>
+      <ul key={share.id}>
+        <div className="company">{share.title.$t}</div>
+        <div className={share.content.$t.indexOf('-') == -1 ? 'normal' : 'negative'}>{share.content.$t.substring(6, share.content.$t.length)}</div>
       </ul>
     );
     return(
-      <div>{formattedJobs}</div>
+      <div>{formattedShares}</div>
     );
   }
 }
@@ -21,7 +21,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state={
-      jobs:[]
+      shares:[]
     }
   }
 
@@ -41,7 +41,7 @@ class App extends React.Component {
     var myUrl = "https://spreadsheets.google.com/feeds/list/0AhySzEddwIC1dEtpWF9hQUhCWURZNEViUmpUeVgwdGc/1/public/basic?alt=json";
     fetch(myUrl)
      .then((response) => response.json())
-     .then((json) => this.setState({jobs: json.feed.entry}));
+     .then((json) => this.setState({shares: json.feed.entry}));
   }
   
   render() {
@@ -51,7 +51,7 @@ class App extends React.Component {
         <h1 id="header-title">FTSE 100 Index</h1>
       </div>
       <div className="content">
-        <Jobs jobs={this.state.jobs}/>
+        <Shares shares={this.state.shares}/>
       </div>
     </div>
     );
